@@ -9,7 +9,7 @@ import collegeIllustration from "@/assets/college-illustration.png";
 
 const Login = () => {
   const navigate = useNavigate();
-  const [email, setEmail] = useState("");
+  const [htNo, setHtNo] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
 
@@ -20,56 +20,43 @@ const Login = () => {
   };
 
   return (
-    <div className="flex min-h-screen">
-      {/* Left side - Illustration */}
-      <div className="hidden lg:flex lg:w-1/2 bg-secondary items-center justify-center p-12">
-        <div className="max-w-lg">
-          <img
-            src={collegeIllustration}
-            alt="College Education"
-            className="w-full h-auto"
-          />
-        </div>
-      </div>
-
+    <div className="flex min-h-screen bg-background">
       {/* Right side - Login Form */}
       <div className="w-full lg:w-1/2 flex items-center justify-center p-8">
         <div className="w-full max-w-md space-y-8">
           {/* Logo and Title */}
-          <div className="text-center">
-            <div className="flex items-center justify-center mb-4">
-              <GraduationCap className="h-12 w-12 text-primary" />
-            </div>
-            <h1 className="text-3xl font-bold text-foreground">
+          <div className="flex items-center gap-3 mb-8">
+            <GraduationCap className="h-10 w-10 text-primary" />
+            <h1 className="text-2xl font-bold text-foreground">
               Vasavi College of Engineering
             </h1>
-            <p className="mt-2 text-muted-foreground">Student Portal</p>
           </div>
 
           {/* Login Form */}
           <div className="space-y-6">
             <div>
-              <h2 className="text-2xl font-semibold text-foreground mb-2">
+              <h2 className="text-3xl font-bold text-foreground mb-2">
                 Welcome back
               </h2>
               <p className="text-muted-foreground">Please enter your details</p>
             </div>
 
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form onSubmit={handleSubmit} className="space-y-5">
               <div className="space-y-2">
-                <Label htmlFor="email">Email address</Label>
+                <Label htmlFor="htno" className="text-base">Hall Ticket No.</Label>
                 <Input
-                  id="email"
-                  type="email"
-                  placeholder="Enter your email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  id="htno"
+                  type="text"
+                  placeholder="Enter your Hall Ticket Number"
+                  value={htNo}
+                  onChange={(e) => setHtNo(e.target.value)}
                   required
+                  className="h-12"
                 />
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="password">Password</Label>
+                <Label htmlFor="password" className="text-base">Password</Label>
                 <Input
                   id="password"
                   type="password"
@@ -77,10 +64,11 @@ const Login = () => {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
+                  className="h-12"
                 />
               </div>
 
-              <div className="flex items-center justify-between">
+              <div className="flex items-center justify-between pt-2">
                 <div className="flex items-center space-x-2">
                   <Checkbox
                     id="remember"
@@ -98,17 +86,40 @@ const Login = () => {
                 </div>
                 <button
                   type="button"
-                  className="text-sm text-primary hover:underline"
+                  className="text-sm text-primary hover:underline font-medium"
                 >
                   Forgot password
                 </button>
               </div>
 
-              <Button type="submit" className="w-full" size="lg">
+              <Button type="submit" className="w-full h-12" size="lg">
                 Sign in
               </Button>
             </form>
+
+            <div className="text-center pt-4">
+              <span className="text-sm text-muted-foreground">
+                Don't have an account?{" "}
+              </span>
+              <button
+                type="button"
+                className="text-sm text-primary hover:underline font-medium"
+              >
+                Sign up
+              </button>
+            </div>
           </div>
+        </div>
+      </div>
+
+      {/* Left side - Illustration */}
+      <div className="hidden lg:flex lg:w-1/2 bg-secondary items-center justify-center p-12 relative overflow-hidden">
+        <div className="max-w-lg z-10">
+          <img
+            src={collegeIllustration}
+            alt="College Education"
+            className="w-full h-auto drop-shadow-2xl"
+          />
         </div>
       </div>
     </div>

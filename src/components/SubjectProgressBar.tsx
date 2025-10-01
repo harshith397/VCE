@@ -28,9 +28,15 @@ const SubjectProgressBar = ({
   }, [isLoading, percentage]);
 
   const getColorClass = (percent: number) => {
-    if (percent >= 85) return "bg-primary";
-    if (percent >= 75) return "bg-primary/80";
-    return "bg-primary/60";
+    if (percent > 85) return "bg-success";
+    if (percent >= 75) return "bg-warning";
+    return "bg-danger";
+  };
+
+  const getTextColorClass = (percent: number) => {
+    if (percent > 85) return "text-success";
+    if (percent >= 75) return "text-warning";
+    return "text-danger";
   };
 
   return (
@@ -44,7 +50,9 @@ const SubjectProgressBar = ({
           <span className="text-muted-foreground">
             Total: <span className="font-semibold text-foreground">{held}</span>
           </span>
-          <span className="font-bold text-primary">{percentage.toFixed(2)}%</span>
+          <span className={`font-bold ${getTextColorClass(percentage)}`}>
+            {percentage.toFixed(2)}%
+          </span>
         </div>
       </div>
 
