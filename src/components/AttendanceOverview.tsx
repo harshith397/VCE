@@ -1,7 +1,64 @@
+import { useState, useEffect } from "react";
 import { Card } from "@/components/ui/card";
 import { BookOpen } from "lucide-react";
 import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
 
+// ✅ Animated Pie component
+const AnimatedPie = ({ percentage, mainColor, absentColor }) => {
+  const [currentValue, setCurrentValue] = useState(0);
+
+  useEffect(() => {
+    let start = 0;
+    const duration = 1000; // 1s animation
+    const step = 10; 
+    const increment = percentage / (duration / step);
+
+    const interval = setInterval(() => {
+      start += increment;
+      if (start >= percentage) {
+        start = percentage;
+        clearInterval(interval);
+      }
+      setCurrentValue(start);
+    }, step);
+
+    return () => clearInterval(interval);
+  }, [percentage]);
+
+  // ✅ If 100%, only show one slice
+  const pieData =
+  percentage === 100
+    ? [{ name: "Present", value: 100 }]
+    : [
+        { name: "Present", value: currentValue },
+        { name: "Absent", value: 100 - currentValue },
+      ];
+
+  return (
+    <ResponsiveContainer width="100%" height={200}>
+      <PieChart>
+        <Pie
+          data={pieData}
+          dataKey="value"
+  cx="50%"
+  cy="50%"
+  innerRadius={60}
+  outerRadius={80}
+  startAngle={90}
+  endAngle={450}   // ✅ full clockwise circle
+  paddingAngle={0} // ✅ no gaps
+  isAnimationActive={false}
+>
+
+          <Cell fill={mainColor} />
+          {percentage < 100 && <Cell fill={absentColor} />}
+        </Pie>
+      </PieChart>
+    </ResponsiveContainer>
+  );
+};
+
+// ✅ Main Component
 const AttendanceOverview = () => {
   const getColorByPercentage = (percentage: number) => {
     if (percentage > 85) return "hsl(var(--success))";
@@ -11,12 +68,6 @@ const AttendanceOverview = () => {
 
   const getAbsentColor = () => "hsl(var(--muted))";
 
-  const getPieData = (attendance: number) => {
-    return [
-      { name: "Present", value: attendance },
-      { name: "Absent", value: 100 - attendance },
-    ];
-  };
   const attendanceData = {
     ECA: {
       "Total Classes": "4",
@@ -36,6 +87,7 @@ const AttendanceOverview = () => {
 
   return (
     <div>
+      {/* Header */}
       <div className="flex items-center gap-3 mb-4">
         <BookOpen className="h-6 w-6 text-primary" />
         <h2 className="text-2xl font-bold text-foreground">
@@ -43,10 +95,10 @@ const AttendanceOverview = () => {
         </h2>
       </div>
 
+      {/* Attendance Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {Object.entries(attendanceData).map(([category, data]) => {
           const percentage = parseFloat(data["Total Attendance"]);
-          const pieData = getPieData(percentage);
           const mainColor = getColorByPercentage(percentage);
           const absentColor = getAbsentColor();
 
@@ -56,28 +108,19 @@ const AttendanceOverview = () => {
                 <h3 className="text-xl font-bold text-foreground mb-4">
                   {category}
                 </h3>
-                
+
+                {/* Animated Pie */}
                 <div className="flex items-center justify-center mb-4">
-                  <ResponsiveContainer width="100%" height={200}>
-                    <PieChart>
-                      <Pie
-                        data={pieData}
-                        cx="50%"
-                        cy="50%"
-                        innerRadius={60}
-                        outerRadius={80}
-                        paddingAngle={2}
-                        dataKey="value"
-                      >
-                        <Cell fill={mainColor} />
-                        <Cell fill={absentColor} />
-                      </Pie>
-                    </PieChart>
-                  </ResponsiveContainer>
+                  <AnimatedPie
+                    percentage={percentage}
+                    mainColor={mainColor}
+                    absentColor={absentColor}
+                  />
                 </div>
 
+                {/* Attendance Percentage */}
                 <div className="text-center mb-4">
-                  <p 
+                  <p
                     className="text-3xl font-bold"
                     style={{ color: mainColor }}
                   >
@@ -89,6 +132,7 @@ const AttendanceOverview = () => {
                 </div>
               </div>
 
+              {/* Details */}
               <div className="grid grid-cols-2 gap-4">
                 {Object.entries(data).map(([key, value]) => {
                   if (key === "Total Attendance") return null;

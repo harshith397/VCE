@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
-import { GraduationCap } from "lucide-react";
+import { GraduationCap, Eye, EyeOff } from "lucide-react";
 import collegeIllustration from "@/assets/college-illustration.png";
 
 const Login = () => {
@@ -12,6 +12,7 @@ const Login = () => {
   const [htNo, setHtNo] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -57,68 +58,41 @@ const Login = () => {
 
               <div className="space-y-2">
                 <Label htmlFor="password" className="text-base">Password</Label>
-                <Input
-                  id="password"
-                  type="password"
-                  placeholder="Enter your password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                  className="h-12"
-                />
-              </div>
-
-              <div className="flex items-center justify-between pt-2">
-                <div className="flex items-center space-x-2">
-                  <Checkbox
-                    id="remember"
-                    checked={rememberMe}
-                    onCheckedChange={(checked) =>
-                      setRememberMe(checked as boolean)
-                    }
+                <div className="relative">
+                  <Input
+                    id="password"
+                    type={showPassword ? "text" : "password"}
+                    placeholder="Enter your password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                    className="h-12 pr-10"
                   />
-                  <Label
-                    htmlFor="remember"
-                    className="text-sm font-normal cursor-pointer"
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(prev => !prev)}
+                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-muted-foreground"
                   >
-                    Remember for 30 days
-                  </Label>
+                    {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+                  </button>
                 </div>
-                <button
-                  type="button"
-                  className="text-sm text-primary hover:underline font-medium"
-                >
-                  Forgot password
-                </button>
               </div>
 
               <Button type="submit" className="w-full h-12" size="lg">
                 Sign in
               </Button>
             </form>
-
-            <div className="text-center pt-4">
-              <span className="text-sm text-muted-foreground">
-                Don't have an account?{" "}
-              </span>
-              <button
-                type="button"
-                className="text-sm text-primary hover:underline font-medium"
-              >
-                Sign up
-              </button>
-            </div>
           </div>
         </div>
       </div>
 
       {/* Left side - Illustration */}
-      <div className="hidden lg:flex lg:w-1/2 bg-secondary items-center justify-center p-12 relative overflow-hidden">
-        <div className="max-w-lg z-10">
+      <div className="hidden lg:flex lg:w-1/2 bg-secondary items-stretch p-1 relative overflow-hidden">
+        <div className="w-full h-full z-10 flex items-center justify-center">
           <img
             src={collegeIllustration}
             alt="College Education"
-            className="w-full h-auto drop-shadow-2xl"
+            className="w-auto h-auto object-cover drop-shadow-2xl"
           />
         </div>
       </div>
