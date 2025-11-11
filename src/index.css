@@ -17,17 +17,17 @@ All colors MUST be HSL.
     --popover: 0 0% 100%;
     --popover-foreground: 240 10% 15%;
 
-    --primary: 258 84% 57%;
-    --primary-foreground: 0 0% 100%;
+  --primary: 225 85% 45%;
+  --primary-foreground: 0 0% 100%;
 
-    --secondary: 258 30% 95%;
-    --secondary-foreground: 258 84% 57%;
+  --secondary: 225 30% 95%;
+  --secondary-foreground: 225 85% 45%;
 
     --muted: 240 5% 96%;
     --muted-foreground: 240 4% 46%;
 
-    --accent: 258 84% 57%;
-    --accent-foreground: 0 0% 100%;
+  --accent: 225 85% 45%;
+  --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
@@ -38,7 +38,7 @@ All colors MUST be HSL.
 
     --border: 240 6% 90%;
     --input: 240 6% 90%;
-    --ring: 258 84% 57%;
+  --ring: 225 85% 45%;
 
     --radius: 0.75rem;
 
@@ -46,17 +46,17 @@ All colors MUST be HSL.
 
     --sidebar-foreground: 240 5.3% 26.1%;
 
-    --sidebar-primary: 240 5.9% 10%;
+  --sidebar-primary: 225 85% 45%;
 
-    --sidebar-primary-foreground: 0 0% 98%;
+  --sidebar-primary-foreground: 0 0% 98%;
 
-    --sidebar-accent: 240 4.8% 95.9%;
+  --sidebar-accent: 225 30% 95%;
 
-    --sidebar-accent-foreground: 240 5.9% 10%;
+  --sidebar-accent-foreground: 225 85% 45%;
 
-    --sidebar-border: 220 13% 91%;
+  --sidebar-border: 225 13% 91%;
 
-    --sidebar-ring: 217.2 91.2% 59.8%;
+  --sidebar-ring: 225 85% 45%;
   }
 
   .dark {
@@ -69,17 +69,17 @@ All colors MUST be HSL.
     --popover: 240 10% 13%;
     --popover-foreground: 0 0% 98%;
 
-    --primary: 258 84% 57%;
-    --primary-foreground: 0 0% 100%;
+  --primary: 225 85% 45%;
+  --primary-foreground: 0 0% 100%;
 
-    --secondary: 258 30% 20%;
-    --secondary-foreground: 0 0% 98%;
+  --secondary: 225 30% 20%;
+  --secondary-foreground: 0 0% 98%;
 
     --muted: 240 5% 20%;
     --muted-foreground: 240 5% 64%;
 
-    --accent: 258 84% 57%;
-    --accent-foreground: 0 0% 100%;
+  --accent: 225 85% 45%;
+  --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
@@ -90,15 +90,15 @@ All colors MUST be HSL.
 
     --border: 240 4% 20%;
     --input: 240 4% 20%;
-    --ring: 258 84% 57%;
+  --ring: 225 85% 45%;
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 258 84% 57%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 258 84% 57%;
+  --sidebar-primary: 225 85% 45%;
+  --sidebar-primary-foreground: 0 0% 100%;
+  --sidebar-accent: 225 30% 20%;
+  --sidebar-accent-foreground: 0 0% 98%;
+  --sidebar-border: 225 30% 20%;
+  --sidebar-ring: 225 85% 45%;
   }
 }
 
@@ -120,4 +120,98 @@ All colors MUST be HSL.
   body {
     @apply bg-background text-foreground;
   }
+}
+
+/* Typography: global font families, heading styles, and spacing for a modern student dashboard */
+@layer base {
+  /* Ensure the base font uses Poppins (font-sans via Tailwind) */
+  html {
+    @apply font-sans;
+    /* provide fallback in case Tailwind utilities are not available at runtime */
+    font-family: 'Poppins', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  }
+
+  /* Headings use Montserrat for a crisp, modern title style */
+  h1, h2, h3, h4 {
+    @apply font-heading font-semibold text-foreground leading-tight tracking-tight;
+    /* set sensible defaults; specific sizes still controlled by utility classes */
+  }
+
+  /* Slightly heavier weight for larger headings */
+  h1 { @apply text-3xl md:text-4xl font-bold; }
+  h2 { @apply text-2xl md:text-3xl font-semibold; }
+  h3 { @apply text-lg font-semibold; }
+  h4 { @apply text-base font-semibold; }
+
+  /* Card titles and section labels commonly use h3/h4 — ensure spacing consistency */
+  .card > h3, .card h3, .card-title, .section-title {
+    @apply font-heading font-semibold tracking-tight leading-snug;
+  }
+
+  /* Improve readability for body text, tables and inputs */
+  p, ul, ol, li, td, th, input, button, select, textarea {
+    @apply font-sans text-base leading-relaxed tracking-normal;
+  }
+
+  /* Buttons: prefer a slightly tighter letter spacing */
+  button, .btn {
+    @apply font-semibold tracking-wide;
+  }
+}
+
+@layer components {
+  /* Login card with a light primary-colored shadow */
+  .login-card {
+    background: hsl(var(--card));
+    color: hsl(var(--card-foreground));
+    border-radius: var(--radius);
+    /* soft shadow using the primary color with low alpha */
+    box-shadow: 0 10px 30px hsl(var(--primary) / 0.12);
+  }
+
+  /* Reusable card shadow using primary color (light variant) */
+  .card-shadow {
+    /* Use the same primary-tinted soft shadow as the login card */
+    box-shadow: 0 10px 30px hsl(var(--primary) / 0.12);
+    border-radius: var(--radius);
+  }
+
+  /* Utility class to apply the primary-colored soft shadow */
+  .primary-shadow {
+    box-shadow: 0 10px 30px hsl(var(--primary) / 0.12);
+    border-radius: var(--radius);
+  }
+
+  /* Profile aside scrollbar: hidden by default, shown on hover with a thin, squared thumb */
+  .profile-scroll {
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent; /* hide by default for Firefox */
+  }
+  .profile-scroll:hover {
+    scrollbar-color: hsl(var(--primary) / 0.6) transparent; /* show on hover */
+  }
+  /* show scrollbar while actively scrolling (JS toggles `.scrolling`) */
+  .profile-scroll.scrolling {
+    scrollbar-color: hsl(var(--primary) / 0.6) transparent;
+  }
+  .profile-scroll::-webkit-scrollbar {
+    width: 8px;
+  }
+  .profile-scroll::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .profile-scroll::-webkit-scrollbar-thumb {
+    background: transparent; /* hidden by default */
+    border-radius: 2px; /* less rounded */
+    transition: background-color 150ms ease-in-out;
+  }
+  .profile-scroll:hover::-webkit-scrollbar-thumb {
+    background: hsl(var(--primary) / 0.6);
+  }
+  .profile-scroll.scrolling::-webkit-scrollbar-thumb {
+    background: hsl(var(--primary) / 0.6);
+  }
+
+  
 }

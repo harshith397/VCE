@@ -1,0 +1,11 @@
+services:
+  - type: static_site
+    name: vasavi-student-hub
+    env: static
+    branch: main
+    buildCommand: "npm install && npm run build"
+    publishDirectory: "dist"
+    envVars:
+      - key: VITE_API_URL
+        value: "https://college-site-backend-1.onrender.com"
+        sync: true

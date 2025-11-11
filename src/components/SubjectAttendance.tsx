@@ -1,55 +1,48 @@
-import { useState, useEffect } from "react";
 import { Card } from "@/components/ui/card";
 import { FileText } from "lucide-react";
 import SubjectProgressBar from "./SubjectProgressBar";
 
-const SubjectAttendance = () => {
-  const [isLoading, setIsLoading] = useState(true);
-
-  const subjectData = {
-    "CA": { presentees: 24, held: 33, percentage: 72.73 },
-    "CT": { presentees: 14, held: 17, percentage: 82.35 },
-    "DS": { presentees: 25, held: 33, percentage: 75.76 },
-    "DSL": { presentees: 14, held: 16, percentage: 87.5 },
-    "ECA-TTC": { presentees: 4, held: 4, percentage: 100.0 },
-    "HVPE-II": { presentees: 5, held: 7, percentage: 71.43 },
-    "OE-NCES(OE)": { presentees: 9, held: 11, percentage: 81.82 },
-    "OOPJ": { presentees: 30, held: 32, percentage: 93.75 },
-    "OOPJL": { presentees: 14, held: 18, percentage: 77.78 },
-    "SDC-I:CS-I": { presentees: 10, held: 14, percentage: 71.43 },
-    "TTPS": { presentees: 19, held: 27, percentage: 70.37 },
+interface SubjectAttendanceProps {
+  data: {
+    Presentees: Record<string, number>;
+    "Held Classes": Record<string, number>;
+    "Extra Classes": Record<string, number>;
   };
+  currentSem?: number | string;
+}
 
-  useEffect(() => {
-    // Simulate loading time
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 1000);
-
-    return () => clearTimeout(timer);
-  }, []);
+const SubjectAttendance = ({ data, currentSem }: SubjectAttendanceProps) => {
+  if (!data) return null;
 
   return (
     <div>
-      <div className="flex items-center gap-3 mb-4">
-        <FileText className="h-6 w-6 text-primary" />
-        <h2 className="text-2xl font-bold text-foreground">
-          Subject-wise Attendance (Regular)
+      <div className="flex items-center gap-3 mb-3">
+        <FileText className="h-5 w-5 text-primary" />
+        <h2 className="text-xl font-semibold text-foreground">
+          Subject-wise Overview (Regular)
         </h2>
       </div>
 
-      <Card className="p-6">
-        <div className="space-y-6">
-          {Object.entries(subjectData).map(([subject, data]) => (
-            <SubjectProgressBar
-              key={subject}
-              subject={subject}
-              presentees={data.presentees}
-              held={data.held}
-              percentage={data.percentage}
-              isLoading={isLoading}
-            />
-          ))}
+      <Card className="p-4 sm:p-6 shadow-lg card-shadow">
+        <div className="divide-y divide-border">
+          {Object.entries(data.Presentees).map(([subject, presentValue]) => {
+            const present = Number(presentValue);
+            const extra = Number(data["Extra Classes"][subject]) || 0;
+            const held = Number(data["Held Classes"][subject]) || 0;
+            const percentage = held > 0 ? ((present + extra) / held) * 100 : 0;
+
+            return (
+              <SubjectProgressBar
+                key={subject}
+                subject={subject}
+                presentees={present}
+                held={held}
+                percentage={percentage}
+                isLoading={false}
+                semester={currentSem}
+              />
+            );
+          })}
         </div>
       </Card>
     </div>
