@@ -11,7 +11,8 @@ import { useState, useEffect, useRef } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { API_URL } from "@/config/api";
 import AttendanceTargetCard from "@/components/attendance-target";
-import defaultImage from "@/assets/Mahesh-Babu.jpg";
+import defaultImage_male from "@/assets/Mahesh-Babu.jpg";
+import defaultImage_female from "@/assets/Mrunal-Thakur.jpg"
 
 const fetchDashboard = async (sessionId: string) => {
   const res = await fetch(`${API_URL}/dashboard`, {
@@ -237,7 +238,7 @@ const Dashboard = () => {
                 <div className="rounded-full p-1 ring-2 ring-primary/70 ring-offset-white inline-block">
                   <div className="w-20 h-20 rounded-full overflow-hidden">
                     <img
-                      src={hasValidImage ? studentImage : defaultImage}
+                      src={hasValidImage ? studentImage : defaultImage_male}
                       alt={dashboardData["DashBoard"]?.Name || "Student"}
                       className="w-20 h-20 object-cover"
                       onError={() => setImgError(true)}
@@ -276,7 +277,7 @@ const Dashboard = () => {
                 <div className="rounded-full p-1 ring-2 ring-primary/70 inline-block">
                   <div className="w-14 h-14 rounded-full overflow-hidden">
                     <img
-                      src={hasValidImage ? studentImage : defaultImage}
+                      src={hasValidImage ? studentImage : defaultImage_male}
                       alt={dashboardData["DashBoard"]?.Name || "Student"}
                       className="w-14 h-14 object-cover"
                       onError={() => setImgError(true)}

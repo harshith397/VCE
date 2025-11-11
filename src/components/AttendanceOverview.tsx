@@ -45,11 +45,11 @@ const AnimatedPie = ({ percentage, mainColor, absentColor }) => {
   }, [percentage])
 
   const pieData =
+    // Avoid showing a tiny "absent" slice for true 100% values.
+    // For percentage >= 100 we present a single slice with value 100.
+    // For other values we animate using currentValue so the pie and label stay in sync.
     percentage >= 100
-      ? [
-          { name: "Present", value: 99.999 },
-          { name: "Absent", value: 0.001, fill: "transparent" },
-        ]
+      ? [{ name: "Present", value: 100 }]
       : [
           { name: "Present", value: currentValue },
           { name: "Absent", value: 100 - currentValue },
@@ -88,7 +88,7 @@ const AnimatedPie = ({ percentage, mainColor, absentColor }) => {
                       y={viewBox.cy}
                       className="fill-foreground text-2xl font-bold"
                     >
-                      {currentValue.toFixed(2)}%
+                      {Math.min(currentValue, 100).toFixed(2)}%
                     </tspan>
                     <tspan
                       x={viewBox.cx}
