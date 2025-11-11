@@ -57,45 +57,45 @@ const MarksPage = () => {
 
       {/* Marks Table */}
       <Card className="overflow-x-auto border shadow-md card-shadow">
-  <table className="w-full text-[9px] leading-none border-collapse">
+  <table className="w-full text-[10px] leading-tight border-collapse">
           <thead>
             <tr className="bg-primary text-white text-center">
-              <th className="border border-gray-300 px-0.5 py-[2px] font-semibold whitespace-nowrap w-6 sticky left-0 z-30 bg-primary text-white">
+              <th className="border border-gray-300 px-0.5 py-0.5 font-semibold whitespace-nowrap w-8 sticky left-0 z-30 bg-primary text-white">
                 S.No
               </th>
-              <th className="border border-gray-300 px-0.5 py-[2px] font-semibold whitespace-nowrap w-24 sticky left-[28px] z-30 bg-primary text-white text-left">
+              <th className="border border-gray-300 px-0.5 py-0.5 font-semibold whitespace-nowrap w-28 sticky left-[32px] z-30 bg-primary text-white text-left">
                 Subject
               </th>
               
               {/* Internal columns */}
               {internalCols.map((col) => (
-                <th key={col} className="border border-gray-300 px-0.5 py-[2px] font-semibold whitespace-nowrap">
+                <th key={col} className="border border-gray-300 px-0.5 py-0.5 font-semibold whitespace-nowrap">
                   {col}
                 </th>
               ))}
               
               {/* Assignment columns */}
               {assignmentCols.map((col) => (
-                <th key={col} className="border border-gray-300 px-0.5 py-[2px] font-semibold whitespace-nowrap">
+                <th key={col} className="border border-gray-300 px-0.5 py-0.5 font-semibold whitespace-nowrap">
                   {col}
                 </th>
               ))}
               
               {/* Quiz columns */}
               {quizCols.map((col) => (
-                <th key={col} className="border border-gray-300 px-0.5 py-[2px] font-semibold whitespace-nowrap">
+                <th key={col} className="border border-gray-300 px-0.5 py-0.5 font-semibold whitespace-nowrap">
                   {col}
                 </th>
               ))}
               
               {/* Sessional columns */}
               {sessionalCols.map((col) => (
-                <th key={col} className="border border-gray-300 px-0.5 py-[2px] font-semibold whitespace-nowrap">
+                <th key={col} className="border border-gray-300 px-0.5 py-0.5 font-semibold whitespace-nowrap">
                   {col}
                 </th>
               ))}
               
-              <th className="border border-gray-300 px-0.5 py-[2px] font-semibold whitespace-nowrap">
+              <th className="border border-gray-300 px-0.5 py-0.5 font-semibold whitespace-nowrap">
                 External
               </th>
             </tr>
@@ -108,42 +108,42 @@ const MarksPage = () => {
                   key={idx}
                   className={`text-center ${idx % 2 === 0 ? "bg-white" : "bg-muted/30"} hover:bg-muted/50`}
                 >
-                  <td className="border border-gray-300 px-0.5 py-[2px] whitespace-nowrap w-6 sticky left-0 z-20 bg-white border-r">
+                  <td className="border border-gray-300 px-0.5 py-0.5 whitespace-nowrap w-8 sticky left-0 z-20 bg-white border-r">
                     {subject.s_no}
                   </td>
-                  <td className="border border-gray-300 px-0.5 py-[2px] font-medium whitespace-nowrap w-24 sticky left-[28px] z-20 bg-white border-r text-left">
+                  <td className="border border-gray-300 px-0.5 py-0.5 font-medium whitespace-nowrap w-28 sticky left-[32px] z-20 bg-white border-r text-left">
                     {subject.name}
                   </td>
                   
                   {/* Internal values */}
                   {internalCols.map((col) => (
-                    <td key={col} className="border border-gray-300 px-0.5 py-[2px] whitespace-nowrap">
+                    <td key={col} className="border border-gray-300 px-0.5 py-0.5 whitespace-nowrap">
                       {getComponentValue(subject, 'internal', col)}
                     </td>
                   ))}
                   
                   {/* Assignment values */}
                   {assignmentCols.map((col) => (
-                    <td key={col} className="border border-gray-300 px-0.5 py-[2px] whitespace-nowrap">
+                    <td key={col} className="border border-gray-300 px-0.5 py-0.5 whitespace-nowrap">
                       {getComponentValue(subject, 'assignment', col)}
                     </td>
                   ))}
                   
                   {/* Quiz values */}
                   {quizCols.map((col) => (
-                    <td key={col} className="border border-gray-300 px-0.5 py-[2px] whitespace-nowrap">
+                    <td key={col} className="border border-gray-300 px-0.5 py-0.5 whitespace-nowrap">
                       {getComponentValue(subject, 'quiz', col)}
                     </td>
                   ))}
                   
                   {/* Sessional values */}
                   {sessionalCols.map((col) => (
-                    <td key={col} className="border border-gray-300 px-0.5 py-[2px] whitespace-nowrap">
+                    <td key={col} className="border border-gray-300 px-0.5 py-0.5 whitespace-nowrap">
                       {getComponentValue(subject, 'sessional', col)}
                     </td>
                   ))}
                   
-                  <td className="border border-gray-300 px-0.5 py-[2px] whitespace-nowrap">
+                  <td className="border border-gray-300 px-0.5 py-0.5 whitespace-nowrap">
                     {subject.grade !== '-' ? `${subject.grade} (${subject.grade_points})` : '-'}
                   </td>
                 </tr>
@@ -151,14 +151,14 @@ const MarksPage = () => {
               
             {/* Total Row */}
             <tr className="bg-muted/70 font-semibold text-center">
-              <td className="border border-gray-300 px-0.5 py-[2px] whitespace-nowrap w-6 sticky left-0 z-20 bg-white border-r">&nbsp;</td>
-              <td className="border border-gray-300 px-0.5 py-[2px] whitespace-nowrap w-24 sticky left-[28px] z-20 bg-white border-r text-left">Total</td>
+              <td className="border border-gray-300 px-0.5 py-0.5 whitespace-nowrap w-8 sticky left-0 z-20 bg-white border-r">&nbsp;</td>
+              <td className="border border-gray-300 px-0.5 py-0.5 whitespace-nowrap w-28 sticky left-[32px] z-20 bg-white border-r text-left">Total</td>
               
               {/* Internal totals */}
               {internalCols.map((col) => {
                 const total = summary?.total_marks?.[col.toLowerCase()];
                 return (
-                    <td key={col} className="border border-gray-300 px-0.5 py-[2px] whitespace-nowrap">
+                    <td key={col} className="border border-gray-300 px-0.5 py-0.5 whitespace-nowrap">
                     {total ? `${total.secured}/${total.max}` : '-'}
                   </td>
                 );
@@ -194,19 +194,19 @@ const MarksPage = () => {
                 );
               })}
               
-              <td className="border border-gray-300 px-0.5 py-[2px] whitespace-nowrap">-</td>
+              <td className="border border-gray-300 px-0.5 py-0.5 whitespace-nowrap">-</td>
             </tr>
             
             {/* Percentage Row */}
             <tr className="bg-muted font-medium text-center">
-              <td className="border border-gray-300 px-0.5 py-[2px] whitespace-nowrap w-6 sticky left-0 z-20 bg-white border-r">&nbsp;</td>
-              <td className="border border-gray-300 px-0.5 py-[2px] whitespace-nowrap w-24 sticky left-[28px] z-20 bg-white border-r text-left">Percentage</td>
+              <td className="border border-gray-300 px-0.5 py-0.5 whitespace-nowrap w-8 sticky left-0 z-20 bg-white border-r">&nbsp;</td>
+              <td className="border border-gray-300 px-0.5 py-0.5 whitespace-nowrap w-28 sticky left-[32px] z-20 bg-white border-r text-left">Percentage</td>
               
               {/* Internal percentages */}
               {internalCols.map((col) => {
                 const total = summary?.total_marks?.[col.toLowerCase()];
                 return (
-                    <td key={col} className="border border-gray-300 px-0.5 py-[2px] whitespace-nowrap">
+                    <td key={col} className="border border-gray-300 px-0.5 py-0.5 whitespace-nowrap">
                     {total?.percentage !== null && total?.percentage !== undefined
                       ? `${typeof total.percentage === 'number' ? total.percentage.toFixed(2) : total.percentage}%`
                       : '-'}

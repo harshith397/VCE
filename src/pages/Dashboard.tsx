@@ -51,6 +51,27 @@ const Dashboard = () => {
     }
   }, [dashboardData, sessionId, queryClient]);
 
+  // Debug helper: print the entire dashboard payload to console and expose it
+  // on window for easy inspection (useful during development / debugging).
+  useEffect(() => {
+    if (!dashboardData) return;
+    try {
+      console.groupCollapsed("Dashboard data (full)");
+      console.log(dashboardData);
+      console.groupEnd();
+      // Expose to window for manual inspection in console
+      try {
+        (window as any).__dashboardData = dashboardData;
+      } catch {
+        // ignore in restricted environments
+      }
+    } catch (err) {
+      // ensure logging never crashes the app
+      // eslint-disable-next-line no-console
+      console.error("Failed to log dashboardData:", err);
+    }
+  }, [dashboardData]);
+
   const { toast } = useToast();
   const [loggingOut, setLoggingOut] = useState(false);
   const asideRef = useRef<HTMLElement | null>(null);
@@ -59,6 +80,10 @@ const Dashboard = () => {
 
   const studentImage = dashboardData?.["Student Image"];
   const hasValidImage = studentImage && studentImage.trim() !== "" && !imgError;
+  // Choose default image based on reported gender in dashboard data.
+  const genderStr = String(dashboardData?.["DashBoard"]?.Gender || "").trim().toLowerCase();
+  const defaultImageChosen =
+    genderStr === "f" || genderStr.includes("female") ? defaultImage_female : defaultImage_male;
 
   // Scroll behavior for sidebar
   useEffect(() => {
@@ -238,7 +263,7 @@ const Dashboard = () => {
                 <div className="rounded-full p-1 ring-2 ring-primary/70 ring-offset-white inline-block">
                   <div className="w-20 h-20 rounded-full overflow-hidden">
                     <img
-                      src={hasValidImage ? studentImage : defaultImage_male}
+                      src={hasValidImage ? studentImage : defaultImageChosen}
                       alt={dashboardData["DashBoard"]?.Name || "Student"}
                       className="w-20 h-20 object-cover"
                       onError={() => setImgError(true)}
@@ -277,7 +302,7 @@ const Dashboard = () => {
                 <div className="rounded-full p-1 ring-2 ring-primary/70 inline-block">
                   <div className="w-14 h-14 rounded-full overflow-hidden">
                     <img
-                      src={hasValidImage ? studentImage : defaultImage_male}
+                      src={hasValidImage ? studentImage : defaultImageChosen}
                       alt={dashboardData["DashBoard"]?.Name || "Student"}
                       className="w-14 h-14 object-cover"
                       onError={() => setImgError(true)}
