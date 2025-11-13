@@ -51,26 +51,6 @@ const Dashboard = () => {
     }
   }, [dashboardData, sessionId, queryClient]);
 
-  // Debug helper: print the entire dashboard payload to console and expose it
-  // on window for easy inspection (useful during development / debugging).
-  useEffect(() => {
-    if (!dashboardData) return;
-    try {
-      console.groupCollapsed("Dashboard data (full)");
-      console.log(dashboardData);
-      console.groupEnd();
-      // Expose to window for manual inspection in console
-      try {
-        (window as any).__dashboardData = dashboardData;
-      } catch {
-        // ignore in restricted environments
-      }
-    } catch (err) {
-      // ensure logging never crashes the app
-      // eslint-disable-next-line no-console
-      console.error("Failed to log dashboardData:", err);
-    }
-  }, [dashboardData]);
 
   const { toast } = useToast();
   const [loggingOut, setLoggingOut] = useState(false);
