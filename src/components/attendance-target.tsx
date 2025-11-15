@@ -28,7 +28,7 @@ const AttendanceTargetCard: React.FC<AttendanceTargetCardProps> = ({ label, data
     const ratio = t / 100;
     const rawNeed = ((ratio * totalClasses) - attended) / (1 - ratio);
     const needAttend = Math.ceil(rawNeed);
-    const capTotal = String(label).toLowerCase().includes("eca") ? 15 : 550;
+    const capTotal = String(label).toLowerCase().includes("eca") ? 16 : 400;
     const maxRemaining = capTotal - totalClasses;
 
     if (!isFinite(rawNeed)) return { mode: "unreachable", count: needAttend, maxRemaining };
