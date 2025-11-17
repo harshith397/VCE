@@ -1,18 +1,16 @@
 import { GraduationCap, LogOut, FileText } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Spinner } from "@/components/ui/spinner";
-import AttendanceOverview from "@/components/AttendanceOverview";
 import SubjectAttendance from "@/components/SubjectAttendance";
-import { Card } from "@/components/ui/card";
 import { useNavigate } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
 import { useQuery } from "@tanstack/react-query";
 import { useState, useEffect, useRef } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { API_URL } from "@/config/api";
-import AttendanceTargetCard from "@/components/attendance-target";
 import defaultImage_male from "@/assets/Mahesh-Babu.jpg";
 import defaultImage_female from "@/assets/Mrunal-Thakur.jpg"
+import AttendanceOverviewCarousel from "@/components/AttendanceOverviewCarousel";
 
 const fetchDashboard = async (sessionId: string) => {
   const res = await fetch(`${API_URL}/dashboard`, {
@@ -333,26 +331,13 @@ const Dashboard = () => {
 
       {/* ===== Main Content ===== */}
       <main className="container mx-auto px-4 py-6 space-y-6 lg:pl-72">
-        <AttendanceOverview data={dashboardData["Total Attendance Data"]} />
+  <AttendanceOverviewCarousel data={dashboardData["Total Attendance Data"]} />
 
-        <Card className="p-4 card-shadow">
-          <h3 className="text-base font-semibold mb-3">
-            Attendance Target Calculator
-          </h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {Object.entries(dashboardData["Total Attendance Data"] || {}).map(
-              ([key, val]) => (
-                <AttendanceTargetCard key={key} label={key} data={val as any} />
-              )
-            )}
-          </div>
-        </Card>
-
-        <SubjectAttendance
-          data={dashboardData["Subjects Attendance Data"]}
-          currentSem={dashboardData["Current Sem"]?.["Sem."]}
-        />
-      </main>
+  <SubjectAttendance
+    data={dashboardData["Subjects Attendance Data"]}
+    currentSem={dashboardData["Current Sem"]?.["Sem."]}
+  />
+</main>
     </div>
   );
 };

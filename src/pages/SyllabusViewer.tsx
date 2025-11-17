@@ -92,18 +92,21 @@ const renderSyllabusUnits = (syllabus: any) => {
       <div className="text-sm text-muted-foreground">No syllabus data.</div>
     );
   return (
-    <Accordion type="multiple" className="w-full">
-      {Object.entries(syllabus).map(([key, value]: [string, any]) => (
-        <AccordionItem key={key} value={key}>
-          <AccordionTrigger>
-            {prettifyKey(key)}: {value?.name || ""}
-          </AccordionTrigger>
-          <AccordionContent>{renderTopics(value?.topics || [])}</AccordionContent>
-        </AccordionItem>
-      ))}
-    </Accordion>
+    <div className="w-full text-left">
+      <Accordion type="multiple" className="w-full text-left">
+        {Object.entries(syllabus).map(([key, value]: [string, any]) => (
+          <AccordionItem key={key} value={key}>
+            <AccordionTrigger className="text-left w-full">
+              {prettifyKey(key)}: {value?.name || ""}
+            </AccordionTrigger>
+            <AccordionContent className="text-left">{renderTopics(value?.topics || [])}</AccordionContent>
+          </AccordionItem>
+        ))}
+      </Accordion>
+    </div>
   );
 };
+
 
 const renderListSection = (title: string, items: string[] = []) => {
   if (!Array.isArray(items) || items.length === 0) return null;
@@ -327,6 +330,8 @@ const SyllabusViewer: React.FC = () => {
                       getKeyInsensitive(details, "syllabus") ||
                         getKeyInsensitive(details, "units")
                     )}
+                    {/* Demo accordion below the syllabus units to show the effect */}
+                    
                   </TabsContent>
 
                   {/* --- ASSESSMENT --- */}
