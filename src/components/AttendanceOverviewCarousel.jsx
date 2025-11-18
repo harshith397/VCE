@@ -441,16 +441,14 @@ const AttendanceOverviewCarousel = ({ data }) => {
             paddingBottom: needsCarousel ? '20px' : '40px', // Reduced bottom space when carousel active
           }}
         >
-          <div 
-            className={`
-              ${needsCarousel 
-                ? 'flex items-center h-full' 
-                : `grid grid-cols-${gridCols} gap-6 justify-center`
-              }
-              transition-transform duration-300 ease-out
-            `}
+          <div
+            className={`transition-transform duration-300 ease-out ${needsCarousel ? 'flex items-center h-full' : 'grid justify-center'}`}
             style={{
-              gap: needsCarousel ? `${CARD_SPACING}px` : undefined,
+              display: needsCarousel ? 'flex' : 'grid',
+              // Use a fixed gap for both modes. In carousel mode flex will use gap too in modern browsers.
+              gap: `${CARD_SPACING}px`,
+              // When in grid mode, explicitly set grid template columns so Tailwind's static classes are not required.
+              gridTemplateColumns: needsCarousel ? undefined : `repeat(${gridCols}, ${CARD_WIDTH}px)`,
               paddingLeft: needsCarousel ? `${PEEK_WIDTH}px` : undefined,
               paddingRight: needsCarousel ? `${PEEK_WIDTH}px` : undefined,
               // For grid mode, ensure proper centering
