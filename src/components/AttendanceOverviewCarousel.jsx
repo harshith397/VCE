@@ -107,7 +107,7 @@ const AttendanceCard = React.memo(({ category, data, isActive }) => {
     if (catLower.includes("eca")) {
       capTotal = 16;
     } else if (catLower.includes("regular")) {
-      capTotal = 400;
+      capTotal = 450;
     } else {
       // Fallback when category is neither 'eca' nor 'regular'
       // Use 400 as a sensible default (semester-like cap). This can be
