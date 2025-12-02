@@ -193,6 +193,8 @@ const Login = () => {
               <Input
                 id="htno"
                 type="text"
+                name="username"              // <--- ADD THIS
+                autoComplete="username"
                 value={htNo}
                 onChange={(e) => setHtNo(e.target.value)}
                 required
@@ -204,6 +206,8 @@ const Login = () => {
                 <Input
                   id="password"
                   type={showPassword ? "text" : "password"}
+                  name="password"              // <--- ADD THIS
+                  autoComplete="current-password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
